@@ -1,8 +1,8 @@
-# Logos OS 🧠✨
+# LogOS 🧠✨
 
 A new kind of Thinking Operating System. A private, local-first "Lab Partner" designed for **cognitive augmentation**, not just task automation.
 
-**[Read Our Vision Paper (Live Now!)](link comming soon)** | **[Kaggle Competition Devpost (Link coming soon)]**
+**[Read Our Vision Paper (link comming soon)** | **[Kaggle Competition Devpost (Link coming soon)]**
 
 ---
 
@@ -27,7 +27,7 @@ As our entry for the **Google Gemma 3n Impact Challenge**, we are building `Wise
 **Current Phase:** In active development for the Kaggle Gemma 3n Impact Challenge (Deadline: August 6, 2025). We are currently in **Sprint 1**, building the core desktop application framework.
 
 **High-Level Roadmap:**
-1.  **Q3 2025:** Launch the free "Wise: Sovereign Edition" desktop app.
+1.  **Q3 2025:** Launch the free "Wise: Sovereign Edition" experimental desktop app.
 2.  **Q4 2025:** Open-source the core orchestration framework.
 3.  **2026:** Launch the "Wise Cloud" subscription for optional sync and the first version of the "Nexus" agent SDK.
 
