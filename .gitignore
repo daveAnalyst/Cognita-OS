@@ -246,3 +246,19 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+# Dependencies
+/node_modules
+/src-frontend/node_modules
+/src-backend/venv
+/src-backend/.venv
+
+# Next.js build output
+/src-frontend/.next
+/src-frontend/out
+
+# Tauri build output
+/src-frontend/src-tauri/target
+/src-frontend/src-tauri/Cargo.lock
+
+# Environment files
+.env.local
