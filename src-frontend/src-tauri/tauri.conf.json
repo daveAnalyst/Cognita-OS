@@ -6,8 +6,10 @@
   "build": {
     "frontendDist": "../out",
     "devUrl": "http://localhost:3000",
-    "beforeDevCommand": "npm run dev",
-    "beforeBuildCommand": "npm run build"
+    "beforeBuildCommand": {
+      "script": "npm run build",
+      "cwd": "../"
+    }
   },
   "app": {
     "windows": [
@@ -21,6 +23,26 @@
     ],
     "security": {
       "csp": null
+    }
+  },
+  "plugins": {
+    "sidecar": {
+      "scripts": [
+        {
+          "name": "sage-mind-kernel",
+          "script": "python",
+          "args": [
+            "-m",
+            "uvicorn",
+            "main:app",
+            "--host",
+            "127.0.0.1",
+            "--port",
+            "8000"
+          ],
+          "cwd": "../../src-backend"
+        }
+      ]
     }
   },
   "bundle": {
