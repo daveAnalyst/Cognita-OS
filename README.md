@@ -1,16 +1,16 @@
-# Engelbert
 
-<!-- A banner image makes the project look instantly more professional. Use a tool like Canva to create a 1280x640 image. -->
+```markdown
+# EngelBERT
+
 <p align="center">
-  <img src="docs/media/engelbert-banner.png" alt="Engelbert OS Banner"/>
+  <img src="media/engelbert banner.png" alt="EngelBERT OS Banner"/>
 </p>
 
 <p align="center">
-  <strong>An open-source 'thinking operating system' designed to be a Socratic partner for thought.</strong>
+  <strong>A new way of interacting with ideas.</strong>
 </p>
 
 <p align="center">
-    <!-- IMPORTANT: Update 'your-github-username' to your actual GitHub username -->
     <a href="https://github.com/daveAnalyst/EngelBERT/blob/main/LICENSE">
         <img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="License: MIT">
     </a>
@@ -24,101 +24,114 @@
 
 ---
 
-## The Unfinished Revolution: From AI Butler to Lab Partner
+### 🚫 The Problem: The AI Butler is a Dead End
+Today’s AI systems are hyper-efficient **“AI Butlers.”** They make us faster, but not smarter. The paradigm remains: human commands, machine obeys. This is a bottleneck for deep thought.
 
-For 60 years, the reactive GUI has defined computing, casting the user as a low-level operator. The current wave of AI, while powerful, reinforces this paradigm by creating hyper-efficient "AI Butlers" for task automation.
+### 🧪 Our Vision: The AI Lab Partner
+We are building EngelBERT, an **AI Lab Partner**—a Socratic system for cognitive augmentation. It’s an *attention shield* that turns your tasks into raw material for deeper, proactive insight.
 
-**Engelbert is a fundamental rethinking of this relationship.**
+---
 
-Inspired by the vision of Douglas Engelbart, we are building an AI-native operating system that functions as a Socratic **"AI Lab Partner"** for cognitive augmentation. It's an "attention shield" designed not to capture your focus, but to amplify it—helping you think with more depth, creativity, and clarity.
+## Meet **Wise**: A Day in the Life (Student Use Case)
 
-## Wise: The Sovereign Scholar Edition (Our MVP)
+The flagship application built on Engelbert is **Wise**. Here’s how it helps a student named Alex study for an exam:
 
-**Wise** is the flagship application built on the Engelbert OS architecture. It is the first Integrated Thinking Environment (ITE) designed for students, researchers, and developers.
+| Step | What happens |
+|---|---|
+| 1. **Ingest** | Alex drags a folder containing 10 lecture PDFs and his messy class notes into his local **"Second Brain"** in Wise. |
+| 2. **Augment** | He activates the **Scholar Lens** 🎓 and asks: *"Generate a one-page cheat sheet on the causes of the French Revolution."* Wise uses its local RAG pipeline to create a structured summary, complete with citations to his own documents. |
+| 3. **Insight** | The **Insight Engine** then surfaces a proactive connection: *"Your notes on 'The Enlightenment' and your textbook's chapter on 'American Revolutionary Ideas' share strong thematic overlaps. Would you like to explore how they directly influenced the events in France?"* |
 
-- **What it is:** A free, 100% offline-first desktop application for Windows, macOS, and Linux.
-- **Cognitive Sovereignty:** Your data, models, and thoughts never leave your machine.
-- **Killer Feature:** The "Cheat Sheet" generator, using a local RAG pipeline to analyze and synthesize your private documents and notes.
-- **"Wow" Feature:** A "Cognitive Screenshot" and gesture-based controls, demonstrating our post-GUI vision.
-
-<!-- A screenshot is critical. Take one of your current running app, even if it's imperfect. -->
 <p align="center">
-  <img src="docs/media/wise-screenshot.png" alt="Wise Application Screenshot" width="80%">
+  <img src="docs/media/wise-screenshot.png" alt="Wise Sovereign Edition Mockup" width="80%">
 </p>
 
-## Architecture & Tech Stack
+---
 
-Engelbert is an **application-level "meta" OS** that runs on top of existing operating systems.
+## Core Innovations
 
-- **The Kernel ("SageMind Orchestrator"):** A Python backend powered by FastAPI that runs as a local sidecar. Its core logic is the **DPES (Deconstruct-Plan-Execute-Synthesize)** loop.
-- **The "Second Brain":** A local-first database using SQLite for structured data and LanceDB for vector storage.
-- **The Frontend:** A reactive UI built with Next.js and TypeScript.
-- **The Desktop Shell:** Packaged into a native desktop app using Tauri.
-- **The AI:** Designed for multi-model orchestration, running local LLMs via Ollama.
+| Feature | Description |
+|---|---|
+| **DPES Loop** | Deconstruct-Plan-Execute-Synthesize with a built-in *Critic Agent* for self-correction. |
+| **Insight Engine** | Passively mines your local knowledge graph for non-obvious connections. |
+| **Cognitive Lenses** | On-demand reasoning styles (Scholar, Muse, Reflective, Agora) for any task. |
+| **Cognitive Sovereignty** | 100% local-first. Your data, models, and thoughts never leave your device. |
+
+---
 
 ## Getting Started (Development Setup)
 
-This project uses a three-terminal setup for development to provide clear, isolated logs for each part of the system.
+This project uses a three-terminal setup for development.
 
-**Prerequisites:**
-- Node.js and npm
-- Python 3.9+ and pip
-- Rust and Cargo
-- Ollama installed and running
+**Prerequisites:** Node.js, Python 3.9+, Rust, and Ollama.
 
 **1. Clone the repository:**
 ```bash
-# IMPORTANT: Update 'your-github-username' after renaming the repo
-git clone https://github.com/daveANALYST/EngelBERT.git
-cd Engelbert
+git clone https://github.com/daveAnalyst/Engelbert-OS.git
+cd Engelbert-OS
+```
 
-**Terminal 1: Launch the backend**
+**2. Terminal 1: Launch the Backend**
 ```bash
 cd src-backend
 python -m venv venv
-source venv/Scripts/activate
+# On Windows (Git Bash): source venv/Scripts/activate
+# On macOS/Linux: source venv/bin/activate
 pip install "fastapi[all]"
 uvicorn main:app --reload
+```
 
-**Terminal 2, Launch the frontend**
+**3. Terminal 2: Launch the Frontend**
 ```bash
 cd src-frontend
 npm install
 npm run dev
+```
 
-**Terminal 3: Launch the Tauri App:**
+**4. Terminal 3: Launch the Tauri App**
 ```bash
 cd src-frontend
 npm run tauri dev
+```
 
-A native desktop window will now launch, displaying the UI from the frontend server.
-
-## Project Structure
-
-This is a monorepo containing the entire Engelbert system.
-
-- `/src-frontend/`: The Next.js and Tauri frontend application.
-- `/src-backend/`: The Python, FastAPI, and AI orchestration backend (the "kernel").
-- `/docs/`: Project documentation, media assets, and the vision paper.
+---
 
 ## Roadmap
 
-- ✅ **Sprint 1: The Steel Frame.**  
-  *Goal:* Achieve a working end-to-end connection where the Tauri UI can communicate with the Python backend via a local API call.
-- 🔄 **Sprint 2: The Thinking Kernel.**  
-  *Goal:* Integrate Ollama into the backend, allowing the UI to send a prompt and receive a response from a local LLM. Implement the first version of the "Cheat Sheet" RAG pipeline.
-- **Sprint 3: The Second Brain.**  
-  *Goal:* Build the document ingestion pipeline and the SQLite/LanceDB database architecture.
+- ✅ **Sprint 1: The Steel Frame**  
+  *Goal:* Working end-to-end UI <-> Backend connection.
 
-## Contributing
+- 🔄 **Sprint 2: The Thinking Kernel**  
+  *Goal:* Integrate Ollama; enable first prompt-to-response loop.
 
-We are not actively accepting pull requests at this time as we focus on the core MVP for the Kaggle challenge, but we welcome feedback and ideas. Please open an issue to start a discussion.
+- **Sprint 3: The Second Brain**  
+  *Goal:* Build document ingestion and RAG pipeline.
 
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
+---
 
 ## The Team
 
-- Dave Angaya (CEO, Product/Architecture)
-- Davin Dewanto (CTO, AI/Backend)
+This project is being built with passion by:
+
+- **David Angaya** (CEO, Product/Architecture)  
+  *My background in Economics taught me to think in terms of systems and human behavior. I fell in love with AI as the ultimate tool to shape these systems and augment the human experience.*
+
+- **Davin Dewanto** (CTO, AI/Backend)  
+  *I'm an engineer who loves bringing ambitious visions to life. With a background in CS and a focus on backend architecture, my passion is building the robust infrastructure that makes magical user experiences possible.*
+
+---
+
+## Get Involved & Read the Vision
+
+|  |  |
+|---|---|
+| 🚀 **Early Access** | [Join the Wise Waitlist](https://tally.so/r/3q8PBG) |
+| 📖 **Vision Page** | [Read the Full Story](https://your-live-vercel-url.app) |
+| 📄 **Academic Paper** | [View on Zenodo (DOI)](https://doi.org/10.5281/zenodo.16020726) |
+
+---
+
+<p align="center">
+<a href="mailto:davidomungala3@gmail.com">Contact Us</a> · <a href="https://twitter.com/Omungala_dave">Follow Updates</a> · <a href="LICENSE">MIT License</a>
+</p>
+```
