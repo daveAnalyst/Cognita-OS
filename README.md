@@ -66,12 +66,14 @@ This project uses a three-terminal setup for development.
 **Prerequisites:** Node.js, Python 3.9+, Rust, and Ollama.
 
 **1. Clone the repository:**
+
 ```bash
-git clone https://github.com/daveAnalyst/Engelbert-OS.git
-cd Engelbert-OS
+git clone https://github.com/daveAnalyst/EngelBERT.git
+cd EngelBERT
 ```
 
 **2. Terminal 1: Launch the Backend**
+
 ```bash
 cd src-backend
 python -m venv venv
@@ -82,6 +84,7 @@ uvicorn main:app --reload
 ```
 
 **3. Terminal 2: Launch the Frontend**
+
 ```bash
 cd src-frontend
 npm install
@@ -89,6 +92,7 @@ npm run dev
 ```
 
 **4. Terminal 3: Launch the Tauri App**
+
 ```bash
 cd src-frontend
 npm run tauri dev

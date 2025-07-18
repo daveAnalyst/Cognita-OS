@@ -1,5 +1,9 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, UploadFile, File, Form
 from fastapi.middleware.cors import CORSMiddleware
+from typing import Annotated
+
+# Import our new function
+from llm_interface import get_llm_response
 
 app = FastAPI()
 
@@ -23,3 +27,16 @@ app.add_middleware(
 @app.get("/")
 def read_root():
     return {"status": "ok", "message": "Hello from the Python backend!"}
+
+# --- NEW CHAT ENDPOINT ---
+@app.post("/api/v1/chat")
+async def chat_endpoint(
+    prompt: Annotated[str, Form()], 
+    image: Annotated[UploadFile | None, File()] = None
+):
+    image_bytes = await image.read() if image else None
+    
+    # Call our refactored, async function
+    llm_response = await get_llm_response(prompt, image_bytes)
+    
+    return {"response": llm_response}
