@@ -1,11 +1,11 @@
 // src-frontend/app/page.tsx
+import { HeroSection } from './components/HeroSection';
+
 export default function HomePage() {
   return (
     <main>
-      <h1 className="text-5xl font-bold gradient-text p-8">
-        The Foundation is Rebuilt. For Good.
-      </h1>
-      <button className="btn-primary m-8">Primary Button</button>
+      <HeroSection />
+      {/* We will add the other sections here, one by one */}
     </main>
   );
 }
