@@ -1,100 +1,82 @@
-// components/HeroSection.tsx
+// src-frontend/app/components/HeroSection.tsx
 'use client';
 
 import { motion } from 'framer-motion';
-import { ChevronDown } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import Link from 'next/link';
+import Image from 'next/image';
+import { ArrowDown } from 'lucide-react';
 
 export const HeroSection = () => {
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      setMousePosition({ x: e.clientX, y: e.clientY });
-    };
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, []);
-
   return (
-    <section className="relative h-screen w-full flex flex-col justify-center items-center text-center px-4 overflow-hidden">
+    <section className="relative min-h-screen w-full flex flex-col justify-center items-center text-center px-4 overflow-hidden">
       
-      {/* Background elements */}
-      <div className="absolute inset-0 -z-10">
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:36px_36px]"></div>
-        <motion.div
-          className="absolute inset-0"
-          style={{
-            background: `radial-gradient(600px at ${mousePosition.x}px ${mousePosition.y}px, rgba(0, 100, 255, 0.15), transparent 80%)`,
-          }}
-        />
-      </div>
-
-      {/* Corner HUD elements */}
-      <div className="absolute top-4 left-4 md:top-8 md:left-8 text-xs text-neutral-500 font-mono">
-        <div>SYS_STATUS: ONLINE</div>
-        <div>COGNITA_KERNEL: ACTIVE</div>
-      </div>
-      <div className="absolute top-4 right-4 md:top-8 md:right-8 text-xs text-neutral-500 font-mono text-right">
-        <div>INTENTMATE INC.</div>
-        <div>SPEC_DOC: REV_1.0</div>
-      </div>
-
-      {/* Main Content using a single motion.div for staggered animations */}
+      {/* Main Content - a fusion of your old component structure and our new copy */}
       <motion.div
         initial="hidden"
-        whileInView="visible"
+        animate="visible"
         viewport={{ once: true }}
         variants={{
           hidden: { opacity: 0 },
           visible: { 
             opacity: 1,
-            transition: { staggerChildren: 0.4, delayChildren: 0.2 } 
+            transition: { staggerChildren: 0.3 } 
           },
         }}
-        className="relative"
+        className="relative z-10"
       >
-        <motion.h1
-          variants={{ hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0 } }}
-          transition={{ type: 'spring', damping: 15, stiffness: 100 }}
-          className="text-4xl md:text-6xl font-bold tracking-tighter bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-300 text-shadow-glow"
+        <motion.div variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }} className="mb-8">
+            <Image 
+              src="/hero-banner.png" 
+              alt="Wise Application Banner" 
+              priority 
+              width={1280} // It's best practice to provide explicit width/height
+              height={640} // for static images to prevent layout shift.
+              className="mx-auto rounded-lg shadow-2xl"
+            />
+        </motion.div>
+        
+        <motion.h1 
+          variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
+          className="text-5xl md:text-7xl font-extrabold tracking-tight gradient-text mb-6"
         >
-          Information is abundant.
+          EngelBERT
         </motion.h1>
         
-        <motion.h2
-          variants={{ hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0 } }}
-          transition={{ type: 'spring', damping: 15, stiffness: 100 }}
-          className="text-4xl md:text-6xl font-bold text-neutral-600 mt-3"
+        <motion.p 
+          variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
+          className="text-2xl md:text-3xl text-text-secondary mb-6 font-light"
         >
-          Insight is scarce.
-        </motion.h2>
-        
-        <motion.p
-            variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
-            transition={{ type: 'spring', damping: 15, stiffness: 100 }}
-            className="mt-8 text-lg md:text-xl text-neutral-400 max-w-2xl mx-auto"
-        >
-            Today's tools help us collect. They don't help us think.
+          The difference between <span className="text-red-400 font-medium">automating tasks</span> and <span className="text-green-400 font-medium">amplifying genius</span>.
         </motion.p>
+        
+        <motion.div 
+          variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
+          className="flex flex-col sm:flex-row gap-4 justify-center mt-10"
+        >
+            <Link href="https://tally.so/r/3q8PBG" target="_blank" className="btn-primary">
+              Reserve Early Access
+            </Link>
+            <Link href="https://github.com/daveAnalyst/EngelBERT" target="_blank" className="btn-secondary">
+              View Source Code
+            </Link>
+        </motion.div>
       </motion.div>
 
-      {/* Upgraded scroll indicator with Chevron icon */}
-      <motion.a
-        href="#product" // This links to the next section
-        aria-label="Scroll down"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 1.5, duration: 1, ease: "easeOut" }}
-        className="absolute bottom-10 flex flex-col items-center space-y-1 group"
+      {/* Animated Scroll Down Indicator */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 2, duration: 1 }}
+        className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center group cursor-pointer"
       >
-        <div className="w-6 h-10 border-2 border-neutral-700 rounded-full flex justify-center p-1 transition-colors duration-300 group-hover:border-cyan-400/50">
-          <div className="w-1 h-2 bg-neutral-500 rounded-full animate-[bounce_2s_infinite] transition-colors duration-300 group-hover:bg-cyan-400" />
+        <div className="w-6 h-10 border-2 border-text-tertiary rounded-full flex justify-center p-1 transition-colors duration-300 group-hover:border-accent-primary/50">
+          <motion.div 
+            className="w-1 h-2 bg-text-secondary rounded-full" 
+            animate={{ y: [0, 12, 0] }}
+            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+          />
         </div>
-        <ChevronDown className="w-5 h-5 text-neutral-600 transition-colors duration-300 group-hover:text-cyan-400" />
-      </motion.a>
+      </motion.div>
     </section>
   );
 };
-
-export default HeroSection;
