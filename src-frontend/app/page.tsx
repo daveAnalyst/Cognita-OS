@@ -2,6 +2,7 @@
 import { HeroSection } from './components/HeroSection';
 import { ProblemSolutionSection } from './components/ProblemSolutionSection';
 import { UserStorySection } from './components/UserStorySection';
+import { FeaturesSection } from './components/FeaturesSection'; // Import the new component
 
 export default function HomePage() {
   return (
@@ -9,7 +10,7 @@ export default function HomePage() {
       <HeroSection />
       <ProblemSolutionSection />
       <UserStorySection />
-      {/* We will add the other sections here */}
+      <FeaturesSection /> {/* Add the new section here */}
     </div>
   );
 }
