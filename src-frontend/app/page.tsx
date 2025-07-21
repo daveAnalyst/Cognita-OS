@@ -2,7 +2,11 @@
 import { HeroSection } from './components/HeroSection';
 import { ProblemSolutionSection } from './components/ProblemSolutionSection';
 import { UserStorySection } from './components/UserStorySection';
-import { FeaturesSection } from './components/FeaturesSection'; // Import the new component
+import { FeaturesSection } from './components/FeaturesSection';
+import { VisionSection } from './components/VisionSection'; // The new, combined section
+// We will build these two last
+// import { CtaSection } from './components/CtaSection';
+// import { Footer } from './components/Footer';
 
 export default function HomePage() {
   return (
@@ -10,7 +14,11 @@ export default function HomePage() {
       <HeroSection />
       <ProblemSolutionSection />
       <UserStorySection />
-      <FeaturesSection /> {/* Add the new section here */}
+      <FeaturesSection />
+      <VisionSection />
+      {/* 
+        The final steps will be to add the CTA and Footer here.
+      */}
     </div>
   );
 }
