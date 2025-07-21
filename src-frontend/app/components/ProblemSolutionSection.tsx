@@ -42,24 +42,32 @@ export const ProblemSolutionSection = () => {
           Today's tools automate your work. <strong className="text-accent-tertiary">Engelbert augments your mind.</strong>
         </motion.p>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8 text-lg">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8 text-left">
           
           {/* THE OLD WAY */}
           <motion.div 
             variants={{ hidden: { opacity: 0, x: -20 }, visible: { opacity: 1, x: 0 } }}
-            className="text-left p-6 bg-glass rounded-xl border-l-4 border-red-500/50"
+            className="p-6 bg-glass rounded-xl border-l-4 border-red-500/50"
           >
             <h3 className="font-semibold mb-4 flex items-center text-red-400 text-2xl">
               <XCircle className="w-8 h-8 mr-3 shrink-0" aria-hidden="true" /> Traditional AI
             </h3>
-            <ul className="text-text-secondary space-y-4">
+            <ul className="text-text-secondary space-y-3 text-base"> {/* Smaller font size */}
               <li className="flex items-start gap-3">
-                <XCircle size={18} className="text-red-400 shrink-0 mt-1" aria-hidden="true" />
-                <span>Built to <em>do the work for you</em></span>
+                <XCircle size={16} className="text-red-400 shrink-0 mt-1" aria-hidden="true" />
+                <span><strong>Model-Centric:</strong> A single, black-box model tries to do everything.</span>
               </li>
               <li className="flex items-start gap-3">
-                <XCircle size={18} className="text-red-400 shrink-0 mt-1" aria-hidden="true" />
-                <span>Cloud-dependent & surveilled</span>
+                <XCircle size={16} className="text-red-400 shrink-0 mt-1" aria-hidden="true" />
+                <span><strong>Cloud-Dependent:</strong> Your data is sent to a server, creating privacy risks and vendor lock-in.</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <XCircle size={16} className="text-red-400 shrink-0 mt-1" aria-hidden="true" />
+                <span><strong>Reactive:</strong> Waits for your command and suffers from context amnesia.</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <XCircle size={16} className="text-red-400 shrink-0 mt-1" aria-hidden="true" />
+                <span><strong>AI-Directed:</strong> The AI tells you the answer, potentially creating over-reliance.</span>
               </li>
             </ul>
           </motion.div>
@@ -67,22 +75,31 @@ export const ProblemSolutionSection = () => {
           {/* THE ENGELBERT WAY */}
           <motion.div 
             variants={{ hidden: { opacity: 0, x: 20 }, visible: { opacity: 1, x: 0 } }}
-            className="text-left p-6 bg-glass rounded-xl border-l-4" style={{ borderColor: 'var(--accent-tertiary)' }}
+            className="p-6 bg-glass rounded-xl border-l-4" style={{ borderColor: 'var(--accent-tertiary)' }}
           >
             <h3 className="font-semibold mb-4 flex items-center text-2xl" style={{ color: 'var(--accent-tertiary)' }}>
               <CheckCircle className="w-8 h-8 mr-3 shrink-0" aria-hidden="true" /> Engelbert
             </h3>
-            <ul className="text-text-secondary space-y-4">
+            <ul className="text-text-secondary space-y-3 text-base"> {/* Smaller font size */}
               <li className="flex items-start gap-3">
-                <CheckCircle size={18} className="shrink-0 mt-1" aria-hidden="true" style={{ color: 'var(--accent-tertiary)' }}/>
-                <span>Built to <em>do the work with you</em></span>
+                <CheckCircle size={16} className="shrink-0 mt-1" aria-hidden="true" style={{ color: 'var(--accent-tertiary)' }}/>
+                <span><strong>Orchestrator-Centric:</strong> A smart kernel selects the best local model or tool for the job.</span>
               </li>
               <li className="flex items-start gap-3">
-                <CheckCircle size={18} className="shrink-0 mt-1" aria-hidden="true" style={{ color: 'var(--accent-tertiary)' }}/>
-                <span>Sovereign & 100% private</span>
+                <CheckCircle size={16} className="shrink-0 mt-1" aria-hidden="true" style={{ color: 'var(--accent-tertiary)' }}/>
+                <span><strong>Sovereign & Local-First:</strong> Your "Second Brain" stays on your device, solving context and memory problems.</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <CheckCircle size={16} className="shrink-0 mt-1" aria-hidden="true" style={{ color: 'var(--accent-tertiary)' }}/>
+                <span><strong>Proactive:</strong> The Insight Engine finds connections you missed, without being asked.</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <CheckCircle size={16} className="shrink-0 mt-1" aria-hidden="true" style={{ color: 'var(--accent-tertiary)' }}/>
+                <span><strong>User-Directed Reasoning:</strong> Cognitive Lenses let you shape the AI's entire thinking process.</span>
               </li>
             </ul>
           </motion.div>
+
         </div>
       </motion.div>
     </section>
