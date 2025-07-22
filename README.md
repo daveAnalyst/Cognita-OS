@@ -1,13 +1,11 @@
-
-```markdown
-# EngelBERT
+# Engelbert OS
 
 <p align="center">
-  <img src="media/engelbert banner.png" alt="EngelBERT OS Banner"/>
+  <img src="docs/media/engelbert-banner.png" alt="Engelbert OS Banner"/>
 </p>
 
 <p align="center">
-  <strong>A new way of interacting with ideas.</strong>
+  <strong>A new language for interacting with ideas.</strong>
 </p>
 
 <p align="center">
@@ -28,7 +26,7 @@
 Today’s AI systems are hyper-efficient **“AI Butlers.”** They make us faster, but not smarter. The paradigm remains: human commands, machine obeys. This is a bottleneck for deep thought.
 
 ### 🧪 Our Vision: The AI Lab Partner
-We are building EngelBERT, an **AI Lab Partner**—a Socratic system for cognitive augmentation. It’s an *attention shield* that turns your tasks into raw material for deeper, proactive insight.
+We are building Engelbert, an **AI Lab Partner**—a Socratic system for cognitive augmentation. It’s an *attention shield* that turns your tasks into raw material for deeper, proactive insight.
 
 ---
 
@@ -66,11 +64,9 @@ This project uses a three-terminal setup for development.
 **Prerequisites:** Node.js, Python 3.9+, Rust, and Ollama.
 
 **1. Clone the repository:**
-
 ```bash
-git clone https://github.com/daveAnalyst/EngelBERT.git
-cd EngelBERT
-```
+git clone https://github.com/daveAnalyst/Engelbert-OS.git
+cd Engelbert-OS
 
 **2. Terminal 1: Launch the Backend**
 
