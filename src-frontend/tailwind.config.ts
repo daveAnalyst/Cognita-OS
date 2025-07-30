@@ -15,7 +15,11 @@ const config: Config = {
   ],
   theme: {
     extend: {
-      // We will keep this minimal because your globals.css is the source of truth.
+      // Keep this minimal. Your globals.css is the source of truth for your design.
+      fontFamily: {
+        sans: ['var(--font-inter)', 'sans-serif'],
+        mono: ['var(--font-jetbrains-mono)', 'monospace'],
+      },
     },
   },
   plugins: [],
