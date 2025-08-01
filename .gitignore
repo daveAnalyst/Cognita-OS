@@ -262,3 +262,13 @@ next-env.d.ts
 
 # Environment files
 .env.local
+# Ignore the large model files in the backend
+src-backend/models/
+
+# Ignore Python virtual environments
+src-backend/venv/
+# Ignore the large model files in the backend
+src-backend/models/
+
+# Ignore Python virtual environments
+src-backend/venv/
