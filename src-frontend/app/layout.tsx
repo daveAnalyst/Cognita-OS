@@ -1,4 +1,4 @@
-// src-frontend/app/layout.tsx
+// src-frontend/app/layout.tsx (The Final, Corrected Version)
 
 import type { Metadata } from 'next';
 import { Inter, JetBrains_Mono } from 'next/font/google';
@@ -8,16 +8,16 @@ import './globals.css';
 const inter = Inter({
   subsets: ['latin'],
   display: 'swap',
-  variable: '--font-inter', // We assign this to a CSS variable.
+  variable: '--font-inter', // We assign this to a CSS variable for Tailwind's use.
 });
 
 const jetbrainsMono = JetBrains_Mono({
   subsets: ['latin'],
   display: 'swap',
-  variable: '--font-jetbrains-mono', // The font for our code blocks.
+  variable: '--font-jetbrains-mono', // The font for our code blocks, used via Tailwind.
 });
 
-// Define the metadata for SEO and social sharing.
+// Define the metadata for SEO and social sharing. This is perfect as is.
 export const metadata: Metadata = {
   title: "EngelBERT — The Thinking Operating System",
   description: "A sovereign, open-source OS for cognitive augmentation. An AI Lab Partner, not a Butler.",
@@ -48,15 +48,11 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode; }) {
   return (
-    // We pass the font variables to the <html> tag.
     <html lang="en" className={`${inter.variable} ${jetbrainsMono.variable}`}>
-      <body suppressHydrationWarning={true}>
+      {/* This one change fixes the font problem forever. */}
+      <body suppressHydrationWarning={true} className={inter.className}>
         {children}
       </body>
     </html>
