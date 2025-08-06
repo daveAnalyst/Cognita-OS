@@ -1,4 +1,4 @@
-/* src-frontend/app/globals.css (The Final, Corrected Version) */
+/* src-frontend/app/globals.css (The Final, Perfected Version) */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -12,9 +12,8 @@
   --accent-secondary: #7c3aed; /* Purple */
   --accent-tertiary: #06ffa5;  /* Green */
   --text-primary: #ffffff;
-  --text-secondary: #b4b4b9;
-  /* THIS IS FIX #1: A brighter, more accessible gray for dark backgrounds */
-  --text-tertiary: #a0a0ab; 
+  --text-secondary: #d1d5db;   /* Improved: Brighter secondary text */
+  --text-tertiary: #9ca3af;    /* Improved: Better contrast tertiary text */
   --border-primary: #ffffff12;
   --border-secondary: #ffffff08;
   --shadow-primary: 0 0 20px rgba(0, 212, 255, 0.3);
@@ -25,17 +24,20 @@
 }
 
 /* Base styles with sci-fi enhancements */
-* { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
 
 body {
   background: var(--bg-primary);
-  /* 
-    THIS IS FIX #2: We REMOVE the global `color` and `font-family` rules.
-    Our `layout.tsx` now handles these perfectly. Removing them here
-    eliminates the "specificity war" and allows Tailwind classes to work
-    as intended, while keeping all our beautiful background effects.
-  */
+  color: var(--text-primary); /* Adding this back for better fallback */
+  font-family: 'Inter', system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   position: relative;
@@ -44,50 +46,105 @@ body {
 
 /* Animated background grid */
 body::before {
-  content: ''; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   background-image: 
     linear-gradient(rgba(0, 212, 255, 0.03) 1px, transparent 1px),
     linear-gradient(90deg, rgba(0, 212, 255, 0.03) 1px, transparent 1px);
-  background-size: 50px 50px; pointer-events: none; z-index: -1;
+  background-size: 50px 50px;
+  pointer-events: none;
+  z-index: -1;
   animation: gridMove 20s linear infinite;
 }
-@keyframes gridMove { from { transform: translate(0, 0); } to { transform: translate(50px, 50px); } }
 
-/* Floating particles effect - This is perfect as is. */
+@keyframes gridMove {
+  from { transform: translate(0, 0); }
+  to { transform: translate(50px, 50px); }
+}
+
+/* Floating particles effect */
 body::after {
-  content: ''; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-  background: radial-gradient(circle at 20% 20%, rgba(0, 212, 255, 0.1) 0%, transparent 50%),
-              radial-gradient(circle at 80% 80%, rgba(124, 58, 237, 0.1) 0%, transparent 50%),
-              radial-gradient(circle at 40% 70%, rgba(6, 255, 165, 0.05) 0%, transparent 50%);
-  pointer-events: none; z-index: -1;
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: 
+    radial-gradient(circle at 20% 20%, rgba(0, 212, 255, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(124, 58, 237, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 40% 70%, rgba(6, 255, 165, 0.05) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: -1;
   animation: particleFloat 15s ease-in-out infinite;
 }
-@keyframes particleFloat { 0%, 100% { transform: translateY(0px) rotate(0deg); } 50% { transform: translateY(-20px) rotate(180deg); } }
 
-/* Scrollbar styling - This is perfect as is. */
-::-webkit-scrollbar { width: 8px; }
-::-webkit-scrollbar-track { background: var(--bg-secondary); }
-::-webkit-scrollbar-thumb { background: linear-gradient(180deg, var(--accent-primary), var(--accent-secondary)); border-radius: 10px; }
-::-webkit-scrollbar-thumb:hover { background: linear-gradient(180deg, var(--accent-secondary), var(--accent-primary)); }
-
-/* Selection styling - This is perfect as is. */
-::selection { background: rgba(0, 212, 255, 0.3); color: var(--text-primary); }
-::-moz-selection { background: rgba(0, 212, 255, 0.3); color: var(--text-primary); }
-
-
-/* Custom utility classes - These are perfect as is. */
-@layer utilities {
-  .text-glow { text-shadow: 0 0 10px rgba(0, 212, 255, 0.5); }
-  .gradient-text { background: var(--gradient-primary); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; color: var(--accent-primary); }
-  /* ... all other custom utilities are great ... */
+@keyframes particleFloat {
+  0%, 100% { 
+    transform: translateY(0px) rotate(0deg); 
+  }
+  50% { 
+    transform: translateY(-20px) rotate(180deg); 
+  }
 }
 
-/*
-  THIS IS FIX #3: The "Legendary Terminal" fix.
-  This one rule ensures our component-level Tailwind color classes
-  (like text-green-300 or text-white) will always win against any
-  potential default styles. This guarantees our colors will render correctly.
-*/
-.app-container [class*="text-"] {
-  color: inherit;
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, var(--accent-primary), var(--accent-secondary));
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, var(--accent-secondary), var(--accent-primary));
+}
+
+/* Selection styling */
+::selection {
+  background: rgba(0, 212, 255, 0.3);
+  color: var(--text-primary);
+}
+
+::-moz-selection {
+  background: rgba(0, 212, 255, 0.3);
+  color: var(--text-primary);
+}
+
+/* Custom utility classes */
+@layer utilities {
+  .text-glow {
+    text-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
+  }
+  
+  .gradient-text {
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  .bg-glass-dark {
+    background: rgba(26, 26, 32, 0.8);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  
+  .bg-gradient-primary {
+    background: var(--gradient-primary);
+  }
+  
+  .backdrop-blur-custom {
+    backdrop-filter: blur(10px);
+  }
 }
