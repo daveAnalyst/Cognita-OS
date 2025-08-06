@@ -1,11 +1,12 @@
 'use client';
 
 import { useState, useRef, useEffect, useCallback } from 'react';
-import { Camera, SendHorizontal, Bot, User, FileText, Mic, Sparkles, BrainCircuit, Terminal, Zap, CheckCircle, Download } from 'lucide-react';
+import { Camera, SendHorizontal, Bot, User, FileText, Mic, Sparkles, BrainCircuit, Terminal, Zap, CheckCircle, Download, Image } from 'lucide-react';
 
 // --- Type Definitions ---
-type Message = { role: 'user' | 'assistant'; content: string; };
-type LogEntry = { type: 'SYSTEM' | 'TOOL' | 'INFO' | 'ERROR'; content: string; timestamp: string; };
+type Message = { role: 'user' | 'assistant'; content: string; image?: string };
+type LogEntry = { type: 'SYSTEM' | 'TOOL' | 'INFO' | 'ERROR'; content: string; timestamp: string };
+type KernelStatus = { text_brain_online: boolean; vision_brain_online: boolean };
 type RightPanelTab = 'Log' | 'Insights' | 'Nexus';
 
 // --- Main Application Component ---
@@ -15,12 +16,15 @@ export default function ChatPage() {
     { role: 'assistant', content: "Welcome to Wise. Your offline, sovereign Second Brain is ready. What great idea are we exploring today?" }
   ]);
   const [input, setInput] = useState('');
+  const [selectedImage, setSelectedImage] = useState<File | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [activeLens, setActiveLens] = useState('Scholar');
   const [executionLog, setExecutionLog] = useState<LogEntry[]>([]);
+  const [kernelStatus, setKernelStatus] = useState<KernelStatus | null>(null);
   const [activeRightTab, setActiveRightTab] = useState<RightPanelTab>('Log');
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   // --- Utility & Side Effects ---
   const addLog = useCallback((entry: Omit<LogEntry, 'timestamp'>) => {
@@ -40,17 +44,60 @@ export default function ChatPage() {
   }, [input]);
 
   useEffect(() => {
-    addLog({ type: 'SYSTEM', content: 'Initializing Wise Demo Environment...' });
-    addLog({ type: 'INFO', content: 'Text Brain: Online (Demo Mode)' });
-    addLog({ type: 'INFO', content: 'Vision Brain: Online (Demo Mode)' });
-    addLog({ type: 'SYSTEM', content: 'Progressive Sovereignty Architecture: Active' });
-    addLog({ type: 'INFO', content: 'Personal Knowledge Graph: Ready' });
+    const fetchKernelStatus = async () => {
+      try {
+        addLog({ type: 'SYSTEM', content: 'Pinging Engelbert Kernel...' });
+        const response = await fetch('http://127.0.0.1:8000/api/v1/status');
+        if (!response.ok) throw new Error(`Kernel responded with status: ${response.status}`);
+        const data: KernelStatus = await response.json();
+        setKernelStatus(data);
+        addLog({ type: 'INFO', content: `Text Brain: ${data.text_brain_online ? 'Online' : 'Offline'}` });
+        addLog({ type: 'INFO', content: `Vision Brain: ${data.vision_brain_online ? 'Online' : 'Offline'}` });
+      } catch (error) {
+        const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+        addLog({ type: 'ERROR', content: `Could not connect to kernel: ${errorMessage}` });
+        setKernelStatus({ text_brain_online: false, vision_brain_online: false });
+      }
+    };
+    fetchKernelStatus();
   }, [addLog]);
+
+  // --- Image Handling ---
+  const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    const validTypes = ['image/png', 'image/jpeg', 'image/webp'];
+    const maxSize = 5 * 1024 * 1024; // 5MB
+
+    if (!validTypes.includes(file.type)) {
+      addLog({ type: 'ERROR', content: 'Invalid file type. Please upload PNG, JPEG, or WEBP images.' });
+      return;
+    }
+
+    if (file.size > maxSize) {
+      addLog({ type: 'ERROR', content: 'Image size exceeds 5MB limit.' });
+      return;
+    }
+
+    setSelectedImage(file);
+    addLog({ type: 'INFO', content: `Image selected: ${file.name} (${(file.size / 1024).toFixed(2)} KB)` });
+  };
+
+  const toBase64 = (file: File): Promise<string> => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(reader.result as string);
+      reader.onerror = () => reject(new Error('Failed to read file'));
+      reader.readAsDataURL(file);
+    });
+  };
 
   // --- Core Logic ---
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!input.trim() || isLoading) return;
+    if (!input.trim() && !selectedImage) return;
+    if (isLoading) return;
 
     if (activeLens === 'Reflective') {
       const msg: Message = {
@@ -61,16 +108,19 @@ export default function ChatPage() {
       return;
     }
 
-    const userMessage: Message = { role: 'user', content: input };
+    const userMessage: Message = { role: 'user', content: input, image: selectedImage ? URL.createObjectURL(selectedImage) : undefined };
     setMessages(prev => [...prev, userMessage]);
     setInput('');
+    setSelectedImage(null);
+    if (fileInputRef.current) fileInputRef.current.value = '';
     setIsLoading(true);
     setExecutionLog([]);
     setActiveRightTab('Log');
 
     const truncatedPrompt = input.length > 100 ? `${input.substring(0, 97)}...` : input;
-    addLog({ type: 'SYSTEM', content: `Activating ${activeLens} Lens for prompt: "${truncatedPrompt}"` });
+    addLog({ type: 'SYSTEM', content: `Activating ${activeLens} Lens${selectedImage ? ' with image' : ''}: "${truncatedPrompt}"` });
     addLog({ type: 'TOOL', content: 'Analyzing query intent...' });
+    if (selectedImage) addLog({ type: 'TOOL', content: `Processing image: ${selectedImage.name}` });
     addLog({ type: 'TOOL', content: 'Cross-referencing Second Brain...' });
     addLog({ type: 'INFO', content: 'Generating contextual response...' });
 
@@ -78,49 +128,55 @@ export default function ChatPage() {
     let attempt = 0;
     let response;
 
-    while (attempt <= maxRetries) {
-      try {
-        const timeoutPromise = new Promise((_, reject) => {
-          setTimeout(() => reject(new Error('Request timed out after 5 seconds')), 5000);
-        });
+    try {
+      const imageBase64 = selectedImage ? await toBase64(selectedImage) : null;
 
-        response = await Promise.race([
-          fetch('/api/chat', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ prompt: input, lens: activeLens }),
-          }),
-          timeoutPromise,
-        ]);
+      while (attempt <= maxRetries) {
+        try {
+          const timeoutPromise = new Promise((_, reject) => {
+            setTimeout(() => reject(new Error('Request timed out after 5 seconds')), 5000);
+          });
 
-        if (!(response instanceof Response)) throw new Error('Request timed out');
+          response = await Promise.race([
+            fetch('http://127.0.0.1:8000/api/v1/chat', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ prompt: input, lens: activeLens, image: imageBase64 }),
+            }),
+            timeoutPromise,
+          ]);
 
-        if (!response.ok) {
-          const errorData = await response.json();
-          throw new Error(errorData.error || `Request failed with status ${response.status}`);
-        }
+          if (!(response instanceof Response)) throw new Error('Request timed out');
 
-        const data = await response.json();
-        const assistantMessage: Message = { role: 'assistant', content: data.response };
-        setMessages(prev => [...prev, assistantMessage]);
-        addLog({ type: 'INFO', content: `Response generated via ${activeLens} Lens (Processing time: ${data.processing_time}ms)` });
-        break;
-      } catch (error) {
-        attempt++;
-        const errorMessage = error instanceof Error ? error.message : 'Unknown error';
-        if (attempt > maxRetries) {
-          addLog({ type: 'ERROR', content: `Failed after ${maxRetries} retries: ${errorMessage}` });
-          setMessages(prev => [...prev, { role: 'assistant', content: `Sorry, I encountered an error: ${errorMessage}` }]);
-          addLog({ type: 'INFO', content: 'Fallback response generated' });
-        } else {
-          addLog({ type: 'ERROR', content: `Attempt ${attempt} failed: ${errorMessage}. Retrying...` });
-          await new Promise(resolve => setTimeout(resolve, 1000));
-        }
-      } finally {
-        if (attempt >= maxRetries || (response instanceof Response && response.ok)) {
-          setIsLoading(false);
+          if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.detail || `Request failed with status ${response.status}`);
+          }
+
+          const data = await response.json();
+          const assistantMessage: Message = { role: 'assistant', content: data.response };
+          setMessages(prev => [...prev, assistantMessage]);
+          addLog({ type: 'INFO', content: `Response generated via ${activeLens} Lens${selectedImage ? ' with image analysis' : ''}` });
+          break;
+        } catch (error) {
+          attempt++;
+          const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+          if (attempt > maxRetries) {
+            addLog({ type: 'ERROR', content: `Failed after ${maxRetries} retries: ${errorMessage}` });
+            setMessages(prev => [...prev, { role: 'assistant', content: `Sorry, I encountered an error: ${errorMessage}` }]);
+            addLog({ type: 'INFO', content: 'Fallback response generated' });
+          } else {
+            addLog({ type: 'ERROR', content: `Attempt ${attempt} failed: ${errorMessage}. Retrying...` });
+            await new Promise(resolve => setTimeout(resolve, 1000));
+          }
         }
       }
+    } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : 'Failed to process image';
+      addLog({ type: 'ERROR', content: errorMessage });
+      setMessages(prev => [...prev, { role: 'assistant', content: `Sorry, I encountered an error: ${errorMessage}` }]);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -203,6 +259,11 @@ export default function ChatPage() {
                     : 'bg-[var(--accent-primary)]/20 text-[var(--text-primary)] rounded-br-none'
                 } border border-[var(--border-primary)] backdrop-blur-lg`}
               >
+                {msg.image && (
+                  <div className="mb-2">
+                    <img src={msg.image} alt="Uploaded image" className="max-w-[200px] rounded-lg" />
+                  </div>
+                )}
                 <p className="whitespace-pre-wrap">{msg.content}</p>
               </div>
             </div>
@@ -253,13 +314,23 @@ export default function ChatPage() {
               <div className="relative group">
                 <button
                   type="button"
-                  className="text-[var(--text-secondary)] hover:text-[var(--accent-primary)] transition-colors"
-                  aria-label="Vision input"
+                  disabled={!kernelStatus?.vision_brain_online}
+                  onClick={() => fileInputRef.current?.click()}
+                  className="text-[var(--text-secondary)] hover:text-[var(--accent-primary)] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                  aria-label="Upload image"
                 >
                   <Camera size={20} />
                 </button>
+                <input
+                  type="file"
+                  ref={fileInputRef}
+                  accept="image/png,image/jpeg,image/webp"
+                  onChange={handleImageChange}
+                  className="hidden"
+                  aria-hidden="true"
+                />
                 <span className="absolute bottom-full mb-2 w-max px-2 py-1 bg-[var(--bg-tertiary)] text-[var(--text-primary)] text-sm rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none font-inter">
-                  Vision capabilities active in demo
+                  {!kernelStatus?.vision_brain_online ? "Ollama not detected" : `Upload image${selectedImage ? `: ${selectedImage.name}` : ''}`}
                 </span>
               </div>
               <div className="relative group">
@@ -277,10 +348,11 @@ export default function ChatPage() {
               </div>
               <button
                 type="submit"
-                disabled={!input.trim() || isLoading}
+                disabled={(!input.trim() && !selectedImage) || isLoading}
+                onClick={handleSubmit}
                 className="p-2 rounded-full transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                 style={{
-                  background: input.trim() && !isLoading
+                  background: (input.trim() || selectedImage) && !isLoading
                     ? 'var(--gradient-primary)'
                     : 'var(--text-tertiary)',
                 }}
