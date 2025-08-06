@@ -6,7 +6,7 @@
 
 <p align="center">
   <strong>The Thinking Operating System.</strong><br>
-  <em>Your Data, Model, Weights, Insights All in One place.</em>
+  <em>Your Data, Model, Weights, Insights Anywhere.</em>
 </p>
 
 <p align="center">
