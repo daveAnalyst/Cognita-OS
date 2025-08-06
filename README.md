@@ -122,7 +122,7 @@ Experience the full power of Wise with our cloud-hosted `Gemma 3n` backend:
 For the full privacy experience:
 
 1. **Download**: Get the latest release from our [Releases page](https://github.com/daveAnalyst/EngelBERT/releases/latest)
-2. **Start Kernel**: Navigate to `src-backend` and run `uvicorn main:app`
+2. **Start Kernel**: Navigate to `src-backend` and run `bootstrap.py` once to set up dependancies and load the backend then run `uvicorn main:app`
 3. **Launch Wise**: Run `Wise.exe` - it will connect to your local kernel automatically
 
 **System Requirements**: Windows (Linux/Mac coming soon)
