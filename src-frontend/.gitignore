@@ -39,3 +39,8 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+# Ignore large, compiled AI models
+src-backend/models/
+
+# Ignore Python virtual environments
+src--backend/venv/

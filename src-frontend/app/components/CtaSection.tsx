@@ -1,4 +1,4 @@
-// src-frontend/app/components/CtaSection.tsx
+// src-frontend/app/components/CtaSection.tsx (The Final, Legendary Version)
 'use client';
 
 import { motion } from 'framer-motion';
@@ -22,31 +22,45 @@ export const CtaSection = () => {
         className="bg-glass-dark rounded-2xl p-8 md:p-12 text-center border-2 border-accent-secondary/50 shadow-lg shadow-accent-secondary/10"
       >
         <h2 className="text-4xl md:text-5xl font-bold text-text-primary mb-6">
-          Join the Cognitive Revolution
+          The Future of Thought is Here.
         </h2>
         <p className="text-xl text-text-secondary mb-8 max-w-2xl mx-auto">
-          Secure your spot in the alpha for <strong className="gradient-text">Wise: Sovereign Edition</strong> and be among the first to experience a true cognitive partner.
+          We have just submitted our V1 MVP for the Google Gemma 3n Challenge. You can now experience the first sovereign thinking partner.
         </p>
+        
+        {/* THIS IS THE NEW, LEGENDARY THREE-BUTTON CTA */}
         <div className="flex flex-col sm:flex-row justify-center items-center gap-4 mb-6">
+          
+          <Link 
+            href="https://github.com/daveAnalyst/EngelBERT/releases/latest" 
+            target="_blank" 
+            className="btn-primary w-full sm:w-auto pulse-glow"
+            aria-label="Download the Wise V1 MVP from GitHub - opens in new tab"
+          >
+            Download the App (V1)
+          </Link>
+          
+          <Link 
+            href="https://www.kaggle.com/competitions/google-gemma-3n-hackathon/writeups/wise-a-sovereign-ontology-driven-thinking-environm" // IMPORTANT: Replace this with your actual Kaggle link
+            target="_blank" 
+            className="btn-secondary w-full sm:w-auto"
+            aria-label="Read our technical writeup on Kaggle - opens in new tab"
+          >
+            Read the Writeup
+          </Link>
+
           <Link 
             href="https://tally.so/r/3q8PBG" 
             target="_blank" 
-            className="btn-primary w-full sm:w-auto pulse-glow" // Added pulse-glow from your design system
-            aria-label="Join the Wise waitlist - opens in new tab"
-          >
-            Get Early Access
-          </Link>
-          <Link 
-            href="https://github.com/daveAnalyst/EngelBERT" 
-            target="_blank" 
             className="btn-secondary w-full sm:w-auto"
-            aria-label="View the EngelBERT OS source code on GitHub - opens in new tab"
+            aria-label="Join the waitlist for future releases - opens in new tab"
           >
-            Explore the Code
+            Join the Waitlist
           </Link>
         </div>
+
         <p className="text-sm text-text-tertiary">
-          No spam. No tracking. Just pure cognitive enhancement.
+          The core app will always be free and open-source. Your data is always yours.
         </p>
       </motion.div>
     </section>
