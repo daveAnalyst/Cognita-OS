@@ -1,4 +1,4 @@
-// src-frontend/app/components/HeroSection.tsx (The Final, Definitive, Branded Version)
+// src-frontend/app/components/HeroSection.tsx (The Final, Legendary Synthesis Version)
 'use client';
 
 import { motion } from 'framer-motion';
@@ -9,9 +9,7 @@ import { ArrowDown } from 'lucide-react';
 export const HeroSection = () => {
   
   const handleScrollDown = () => {
-    // This finds the very next <section> element on the page.
-    const currentSection = document.querySelector('section');
-    const nextSection = currentSection?.nextElementSibling;
+    const nextSection = document.querySelector('section:nth-of-type(2)');
     if (nextSection) {
       nextSection.scrollIntoView({ behavior: 'smooth' });
     }
@@ -34,16 +32,15 @@ export const HeroSection = () => {
         className="relative z-10 flex flex-col items-center"
       >
         
-        {/* THIS IS THE UPGRADE: The banner is back, in a more iconic, less dominant role. */}
         <motion.div 
           variants={{ hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: 'easeOut' } } }}
           className="mb-8"
         >
             <Image 
-              src="/media/hero-banner.png" // Ensure this is the correct path in your /public folder
+              src="/media/hero-banner.png"
               alt="Wise Application Banner" 
               priority 
-              width={700} // Reduced from 1280 to a more focused, iconic size
+              width={700}
               height={320}
               className="mx-auto rounded-lg shadow-2xl"
               style={{
@@ -52,12 +49,19 @@ export const HeroSection = () => {
             />
         </motion.div>
         
-        {/* The visionary text now supports and elevates the banner */}
+        {/* THIS IS THE NEW, SYNTHESIZED NARRATIVE */}
         <motion.p 
           variants={{ hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: 'easeOut' } } }}
-          className="text-2xl md:text-3xl text-text-secondary mb-10 font-light max-w-3xl mx-auto"
+          className="text-2xl md:text-3xl text-text-secondary mb-4 font-light max-w-3xl mx-auto"
         >
-          Today's AI makes you faster. We are building the AI that makes you <span className="text-green-400 font-medium">smarter</span>.
+          Today's AI makes you <span className="text-white font-medium">faster</span>. We are building the AI that makes you <span className="gradient-text-secondary font-medium">smarter</span>.
+        </motion.p>
+        
+        <motion.p 
+          variants={{ hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: 'easeOut' } } }}
+          className="text-xl md:text-2xl text-text-tertiary mb-10 font-light max-w-3xl mx-auto"
+        >
+          Wise is not an artificial mind to replace yours; it is a **sovereign extension of your mind** that works even in <span className="text-text-secondary font-medium">airplane mode</span>.
         </motion.p>
         
         <motion.div 
@@ -77,7 +81,7 @@ export const HeroSection = () => {
         onClick={handleScrollDown}
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 2, duration: 1 }}
+        transition={{ delay: 2.5, duration: 1 }}
         className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center group cursor-pointer"
         aria-label="Scroll to next section"
       >
