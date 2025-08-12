@@ -93,7 +93,7 @@ Your private, on-device knowledge graph that enables:
 |-------|---------|--------|
 | **Today** | 💻 **Sovereign Desktop** | Powerful local multimodl AI-system that proves privacy and capability can coexist |
 | **Tomorrow** | 💾 **Sage Stick** | Zero-dependency portable intelligence on a flash drive |
-| **Future** | 📻 **Smart Radio** | Screenless, voice-first ambient AI that frees you from screens |
+| **Future** | 📻 **Wise Orb** | Screenless, voice-first ambient AI that frees you from screens |
 
 ---
 
@@ -163,6 +163,16 @@ The core Wise desktop application is <strong>free and open-source forever</stron
 Our immediate focus is perfecting the desktop experience and launching the "Sage Stick" portable version. Mobile support is on our roadmap for 2025.
 </details>
 
+<details>
+<summary><strong>What is the "WiseNet" vision?</strong></summary>
+<br>
+This is our long-term vision for true, ambient intelligence. While a tool like BitChat enables sovereign human-to-human communication, WiseNet is a protocol for **AI-to-AI communication.**
+<br><br>
+It is a peer-to-peer, offline mesh network that allows your Wise instance to securely and privately talk to another user's Wise instance. Imagine being in a meeting where your AI can get context from your co-founder's AI in real-time, without ever touching the internet.
+<br><br>
+This is not just communication. This is **collaborative cognition.**
+</details>
+
 ---
 
 ## The Team
@@ -176,7 +186,7 @@ Our immediate focus is perfecting the desktop experience and launching the "Sage
 
 |  |  |
 |---|---|
-| 🚀 **Early Access** | [Join the Sage Stick waitlist](https://tally.so/r/3q8PBG) |
+| 🚀 **Early Access** | [Join the waitlist for the Sage Stick experience](https://tally.so/r/3q8PBG) |
 | 📖 **Learn More** | [Read our Vision](https://engel-bert.vercel.app/) |
 | 📄 **Research** | [View our Paper on Zenodo](https://doi.org/10.5281/zenodo.16020727) |& [Updated PDF](docs/Engelbert_V2.pdf) |
 | 💬 **Connect** | [Follow Updates](https://twitter.com/Omungala_dave) |
